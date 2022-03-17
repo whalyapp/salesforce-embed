@@ -1,0 +1,30 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSObjectName" controller="WhalyEmbed" access="global">
+    <aura:attribute name="embed_token" type="String" />
+    <aura:attribute name="fetched" type="Boolean" />
+    <aura:attribute name="iframeUrl" type="String" />
+    <aura:attribute name="orgSlug" type="String" />
+    <aura:attribute name="embedToken" type="String" />
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="height" type="String" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="userId" type="String" />
+    <aura:attribute name="userEmail" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:card title="{!v.title}" class="mainCard" iconName="utility:graph" >
+        <aura:if isTrue="{!v.fetched}">
+        	<iframe src="{!v.iframeUrl}"
+                width="100%"
+                height="{!v.height}"
+                style="border: none; overflow: scroll;"
+                frameBorder="0"
+                sandbox="allow-same-origin allow-scripts allow-forms"
+                scrolling="auto"/>
+        <aura:set attribute="else">
+          <div>
+              <lightning:spinner alternativeText="Loading" size="medium" />
+          </div>
+        </aura:set>
+        </aura:if>
+    </lightning:card>
+</aura:component>

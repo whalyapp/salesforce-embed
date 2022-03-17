@@ -1,0 +1,6 @@
+<design:component label="Whaly Embed">
+    <design:attribute name="title" label="Title" default="My report"/>
+    <design:attribute name="embedToken" label="Embed token" default="XX-XXX"/>
+    <design:attribute name="orgSlug" label="Org Slug" default="whaly"/>
+    <design:attribute name="height" label="Height" default="500px"/>
+</design:component>

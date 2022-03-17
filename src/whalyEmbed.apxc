@@ -1,0 +1,34 @@
+public class WhalyEmbed {
+    
+    public static String base64URLencode(Blob input){
+        String output = encodingUtil.base64Encode(input);
+        output = output.replace('+', '-');
+        output = output.replace('/', '_');
+        while ( output.endsWith('=')){
+            output = output.subString(0,output.length()-1);
+        }
+        return output;
+    }
+    
+    
+    @AuraEnabled
+    public static String generateJWT(Id userId, Id recordId, String userEmail) {
+        
+        Long expirationTs = Datetime.now().addMinutes(24 * 60).getTime();
+       	String header = '{"alg":"HS256","typ":"JWT"}';
+        String payload = '{"filters":{"userId": '+System.JSON.serialize(userId)+', "recordId": '+System.JSON.serialize(recordId)+', "userEmail": '+System.JSON.serialize(userEmail)+'}, "expiration_date": '+ System.JSON.serialize(expirationTs) +' }';
+        String key = '44f13fc4-2301-43b0-80f8-e1665913bd83';
+
+		String header64 = base64URLencode(Blob.valueOf(header));
+        
+        String payload64 = base64URLencode(Blob.valueOf(payload));
+
+        Blob hmacData = Crypto.generateMac('hmacSHA256', Blob.valueOf(header64 + '.' + payload64), Blob.valueOf(key));
+        String signature = base64URLencode(hmacData);
+        
+        String token = header64 + '.' + payload64 + '.' +signature ;        
+        
+        return token;
+    }
+    
+}
