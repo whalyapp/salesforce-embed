@@ -17,7 +17,7 @@ public class WhalyEmbed {
         Long expirationTs = Datetime.now().addMinutes(24 * 60).getTime();
        	String header = '{"alg":"HS256","typ":"JWT"}';
         String payload = '{"filters":{"userId": '+System.JSON.serialize(userId)+', "recordId": '+System.JSON.serialize(recordId)+', "userEmail": '+System.JSON.serialize(userEmail)+'}, "expiration_date": '+ System.JSON.serialize(expirationTs) +' }';
-        String key = '44f13fc4-2301-43b0-80f8-e1665913bd83';
+        String key = 'XXXXXXX-XXXX-XXXX-XXXX-XXXXXXX';
 
 		String header64 = base64URLencode(Blob.valueOf(header));
         

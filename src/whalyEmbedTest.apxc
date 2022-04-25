@@ -1,0 +1,23 @@
+@isTest
+public class WhalyEmbedTest {
+	// Methods for testing
+   	@isTest static void base64URLencode() {
+      // Implement test code
+      String myString = 'myString';
+	  Blob myBlob = Blob.valueof(myString);
+      String encodedString = WhalyEmbed.base64URLencode(myBlob);
+      System.assertEquals('bXlTdHJpbmc', encodedString);
+   	}
+    
+    @isTest static void generateJWT() {
+      // Implement test code
+      
+       Id userId = TestUtility.getFakeId(User.SObjectType);
+       Id recordId = TestUtility.getFakeId(Contact.SObjectType );
+       String userEmail = 'test@test.com';
+       String jwt = WhalyEmbed.generateJWT(userId, recordId, userEmail);
+       List<String> res = jwt.split('.', 3);
+       Integer n = res.size();
+       System.assertEquals(res.size(), 3);
+   	}
+}
